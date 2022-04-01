@@ -1,4 +1,4 @@
-package com.ruse.empty;
+package com.ruse.ld50;
 
 import org.lwjgl.opengl.GL11;
 
@@ -71,8 +71,8 @@ public class BaseGame extends LintfordCore {
 	}
 
 	@Override
-	protected void onLoadGLContent() {
-		super.onLoadGLContent();
+	protected void onLoadResources() {
+		super.onLoadResources();
 
 		mCoreText = mResourceManager.fontManager().getFontUnit(BitmapFontManager.SYSTEM_FONT_CORE_TITLE_NAME);
 	}
