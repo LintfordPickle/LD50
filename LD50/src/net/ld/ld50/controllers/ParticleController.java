@@ -134,7 +134,6 @@ public class ParticleController extends BaseController {
 	}
 
 	public void hitWall(float pwx, float pwy, float pvx, float pvy, float power) {
-		System.out.println("spark power: " + power);
 		if (power < 10)
 			return;
 
