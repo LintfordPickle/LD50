@@ -1,0 +1,115 @@
+{
+  "spriteSheetName": "SPRITESHEET_PROPS",
+  "textureName": "TEXTURE_PROPS",
+  "spriteFrames": [
+    {
+      "name": "TEXTUREBUMPERLEFT",
+      "x": 0,
+      "y": 48,
+      "w": 73,
+      "h": 103,
+      "pivotX": 0,
+      "pivotY": 0,
+      "scaleX": 1.0,
+      "scaleY": 1.0,
+      "anchorPoints": []
+    },
+    {
+      "name": "TEXTUREBUMPERRIGHT",
+      "x": 73,
+      "y": 48,
+      "w": 70,
+      "h": 101,
+      "pivotX": 0,
+      "pivotY": 0,
+      "scaleX": 1.0,
+      "scaleY": 1.0,
+      "anchorPoints": []
+    },
+    {
+      "name": "TEXTUREBUMPER",
+      "x": 0,
+      "y": 0,
+      "w": 48,
+      "h": 48,
+      "pivotX": 0,
+      "pivotY": 0,
+      "scaleX": 1.0,
+      "scaleY": 1.0,
+      "anchorPoints": []
+    },
+    {
+      "name": "TEXTUREFLIPPER",
+      "x": 48,
+      "y": 0,
+      "w": 64,
+      "h": 24,
+      "pivotX": -24,
+      "pivotY": -2,
+      "scaleX": 1.0,
+      "scaleY": 1.0,
+      "anchorPoints": []
+    },
+    {
+      "name": "TEXTUREPLUNGER",
+      "x": 143,
+      "y": 48,
+      "w": 16,
+      "h": 48,
+      "pivotX": 0,
+      "pivotY": 0,
+      "scaleX": 1.0,
+      "scaleY": 1.0,
+      "anchorPoints": []
+    },
+    {
+      "name": "TEXTUREHITTERIDLE",
+      "x": 112,
+      "y": 0,
+      "w": 24,
+      "h": 16,
+      "pivotX": 0,
+      "pivotY": 0,
+      "scaleX": 1.0,
+      "scaleY": 1.0,
+      "anchorPoints": []
+    },
+    {
+      "name": "TEXTURELIGHTGREEN",
+      "x": 136,
+      "y": 0,
+      "w": 16,
+      "h": 16,
+      "pivotX": 0,
+      "pivotY": 0,
+      "scaleX": 1.0,
+      "scaleY": 1.0,
+      "anchorPoints": []
+    },
+    {
+      "name": "TEXTURELIGHTGREY",
+      "x": 152,
+      "y": 0,
+      "w": 16,
+      "h": 16,
+      "pivotX": 0,
+      "pivotY": 0,
+      "scaleX": 1.0,
+      "scaleY": 1.0,
+      "anchorPoints": []
+    },
+    {
+      "name": "TEXTURELIGHTYELLOW",
+      "x": 168,
+      "y": 0,
+      "w": 16,
+      "h": 16,
+      "pivotX": 0,
+      "pivotY": 0,
+      "scaleX": 1.0,
+      "scaleY": 1.0,
+      "anchorPoints": []
+    }
+  ],
+  "animationFramesMap": {}
+}

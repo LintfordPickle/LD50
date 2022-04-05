@@ -1,11 +1,14 @@
-package com.ruse.ld50;
+package net.ld.ld50;
 
 import org.lwjgl.opengl.GL11;
 
+import net.ld.ld50.screens.DemoScreen;
+import net.ld.ld50.screens.GameScreen;
+import net.ld.unstable.controllers.SoundFxController;
 import net.lintford.library.GameInfo;
 import net.lintford.library.core.LintfordCore;
 import net.lintford.library.core.graphics.fonts.BitmapFontManager;
-import net.lintford.library.core.graphics.fonts.FontUnit;
+import net.lintford.library.screenmanager.ScreenManager;
 
 public class BaseGame extends LintfordCore {
 
@@ -13,17 +16,19 @@ public class BaseGame extends LintfordCore {
 	// Constants
 	// ---------------------------------------------
 
-	private static final String WINDOW_TITLE = "LintfordCore Game";
-	private static final String APPLICATION_NAME = "Game Template";
+	private static final String WINDOW_TITLE = "Lintford's Pinball";
+	private static final String APPLICATION_NAME = "Pinball";
 
 	private static final int WINDOW_WIDTH = 800;
-	private static final int WINDOW_HEIGHT = 600;
+	private static final int WINDOW_HEIGHT = 800;
+
+	private static final String POBJECTS_META = "res/pobjects/_meta.json";
 
 	// ---------------------------------------------
 	// Variables
 	// ---------------------------------------------
 
-	private FontUnit mCoreText;
+	private ScreenManager mScreenManager;
 
 	// ---------------------------------------------
 	// Constructor
@@ -33,6 +38,7 @@ public class BaseGame extends LintfordCore {
 		super(pGameInfo, pArgs, pHeadless);
 
 		mIsFixedTimeStep = true;
+		mScreenManager = new ScreenManager(this);
 	}
 
 	// ---------------------------------------------
@@ -43,23 +49,20 @@ public class BaseGame extends LintfordCore {
 	protected void oninitializeGL() {
 		super.oninitializeGL();
 
-		// Enable depth testing
 		GL11.glEnable(GL11.GL_BLEND);
 		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 
-		// Enable depth testing
 		GL11.glEnable(GL11.GL_DEPTH_TEST);
 		GL11.glDepthFunc(GL11.GL_LEQUAL);
-
-		// Set the clear color to corn flower blue
-		GL11.glClearColor(0.0f / 255.0f, 149.0f / 255.0f, 237.0f / 255.0f, 1.0f);
-
 	}
 
 	@Override
 	protected void onInitializeApp() {
 		super.onInitializeApp();
 
+		mResourceManager.pobjectManager().definitionRepository().loadDefinitionsFromMetaFile(POBJECTS_META);
+
+		mScreenManager.initialize();
 	}
 
 	@Override
@@ -68,43 +71,48 @@ public class BaseGame extends LintfordCore {
 
 		BitmapFontManager.CoreFonts.AddOrUpdate(BitmapFontManager.SYSTEM_FONT_CORE_TEXT_NAME, "res/fonts/fontCoreText.json");
 		BitmapFontManager.CoreFonts.AddOrUpdate(BitmapFontManager.SYSTEM_FONT_CORE_TITLE_NAME, "res/fonts/fontCoreTitle.json");
+
+		pFontManager.loadBitmapFont("FONT_SCOREBOARD", "res/fonts/fontHardPixelScore.json");
 	}
 
 	@Override
 	protected void onLoadResources() {
 		super.onLoadResources();
 
-		mCoreText = mResourceManager.fontManager().getFontUnit(BitmapFontManager.SYSTEM_FONT_CORE_TITLE_NAME);
+		var lSoundFxController = new SoundFxController(mControllerManager, mResourceManager.audioManager(), CORE_ENTITY_GROUP_ID);
+		lSoundFxController.initialize(this);
+
+		final var lAudioManager = mResourceManager.audioManager();
+		lAudioManager.loadAudioFilesFromMetafile("res/audio/_meta.json");
+
+		mScreenManager.addScreen(new GameScreen(mScreenManager));
+		mScreenManager.addScreen(new DemoScreen(mScreenManager, null));
+
+		mScreenManager.loadResources(mResourceManager);
 	}
 
 	@Override
 	protected void onHandleInput() {
 		super.onHandleInput();
 
+		mScreenManager.handleInput(this);
 	}
 
 	@Override
 	protected void onUpdate() {
 		super.onUpdate();
 
+		mScreenManager.update(this);
 	}
 
 	@Override
 	protected void onDraw() {
 		super.onDraw();
 
-		final var lTextScale = 1.f;
-		final var lText = "Hello LintfordLibGame";
-		final var lTextWidth = mCoreText.getStringWidth(lText, lTextScale);
+		GL11.glClearColor(3.0f / 255.0f, 9.0f / 255.0f, 37.0f / 255.0f, 1.0f);
+		GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
 
-		final float lTimeMod = 0.0005f;
-		final float sin = (float) Math.sin(mGameTime.totalTimeMilli() * lTimeMod);
-		final float cos = (float) Math.cos(mGameTime.totalTimeMilli() * lTimeMod);
-
-		mCoreText.begin(mHUD);
-		final float lMagnitude = 200.f;
-		mCoreText.drawText(lText, (int) (-lTextWidth * .5f + (sin * lMagnitude)), (int) (0 + (sin * cos * lMagnitude)), -1.01f, 1.f);
-		mCoreText.end();
+		mScreenManager.draw(this);
 	}
 
 	// -------------------------------

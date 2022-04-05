@@ -2,8 +2,32 @@
 	"AudioMetaDefinitions" : [
 	
 		{
-			"soundname":"",
-			"filepath":""
+			"soundname":"AUDIO_FLIPPER",
+			"filepath":"res/audio/soundFlipper.wav"
+		},
+		{
+			"soundname":"AUDIO_BLACKHOLE",
+			"filepath":"res/audio/soundBlackhole.wav"
+		},
+		{
+			"soundname":"AUDIO_HIT",
+			"filepath":"res/audio/soundHitWall.wav"
+		},
+		{
+			"soundname":"AUDIO_KICKER",
+			"filepath":"res/audio/soundKicker.wav"
+		},
+		{
+			"soundname":"AUDIO_PLUNGER",
+			"filepath":"res/audio/soundPlunger.wav"
+		},
+		{
+			"soundname":"AUDIO_NO",
+			"filepath":"res/audio/soundNo.wav"
+		},
+		{
+			"soundname":"AUDIO_YES",
+			"filepath":"res/audio/soundYes.wav"
 		}
 		
 	]

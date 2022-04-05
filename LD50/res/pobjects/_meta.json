@@ -1,0 +1,14 @@
+{
+	"PObjectMetaDefinitions" : [
+		{
+			"pObjectName":"POBJECT_TABLE",
+			"filepath":"res/pobjects/pobjectTable.json",
+			"reloadable":"false"
+		},
+		{
+			"pObjectName":"POBJECT_BALL",
+			"filepath":"res/pobjects/pobjectBall.json",
+			"reloadable":"false"
+		}
+	]
+}

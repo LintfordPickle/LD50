@@ -1,18 +1,12 @@
 <!-- ====================================================================== 
-     28.09.2021
+     03.10.2021
 
-     Project     :	An Empty Game Project
-     Description :	An empty project for use with the LintfordCore engine
+     Project     :	
+     Description :	A LD50 Compo Entry
      
-     Don't forget to fill in the following variables below:
-     
-     + name
-     + project.name
-     + main-class (fully qualified)
-
 ====================================================================== -->
 
-<project name="LDGame" basedir="." default="main">
+<project name="Pinball" basedir="." default="main">
 
 	<!-- External dependency directories -->
 	<property name="LDLibrary.dir">d:/dist/libs/LDLibrary</property>
@@ -23,9 +17,9 @@
 
 	<!-- Porject variables -->
 	<property name="build-drive">d:</property>
-	<property name="project.name">LDGame</property>
+	<property name="project.name">Pinball</property>
 
-	<property name="main-class">com.ruse.empty.BaseGame</property>
+	<property name="main-class">net.ld.ld50.BaseGame</property>
 
 	<!-- Input directories -->
 	<property name="input.src.dir" value="src" />
@@ -148,9 +142,10 @@
 	<!-- bundle the JRE in the output folder -->
 	<target name="bundle.jre" depends="check.jre" unless="jre.dir.exists">
 		<echo message="Bundling JRE" />
+		<echo message='${JDK.input.dir}/bin/jlink --module-path "${JDK.input.dir}/jmods" --add-modules java.base,java.sql,java.desktop,java.management,java.xml,jdk.unsupported,jdk.management --output ${dist.jre} --strip-debug --compress 2 --no-header-files --no-man-pages' />
 		<exec executable="cmd">
 			<arg value="/c" />
-			<arg value='${JDK.input.dir}/bin/jlink --module-path "${JDK.input.dir}/jmods" --add-modules java.base,java.sql,java.desktop,java.management,java.xml,jdk.unsupported,jdk.management --output ${dist.jre} --strip-debug --compress 2 --no-header-files --no-man-pages' />
+			<arg value='${JDK.input.dir}/bin/jlink --module-path ${JDK.input.dir}/jmods --add-modules java.base,java.sql,java.desktop,java.management,java.xml,jdk.unsupported,jdk.management --output ${dist.jre} --strip-debug --compress 2 --no-header-files --no-man-pages' />
 		</exec>
 	</target>
 	
