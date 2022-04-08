@@ -26,8 +26,10 @@ public class GameCollisionController extends Box2dContactController {
 	final static float BUMPER_REPEL_MULTI = 3.5f;
 	final static float KICKER_REPEL_MULTI = 2.5f;
 
-	final static int KICKER_SCORE = 100;
-	final static int BUMPER_SCORE = 100;
+	final static int KICKER_SCORE = 150;
+	final static int HITTER_SCORE = 200;
+	final static int WORMHOLE_SCORE = 1000;
+	final static int BUMPER_SCORE = 150;
 
 	// ---------------------------------------------
 	// Variables
@@ -126,7 +128,6 @@ public class GameCollisionController extends Box2dContactController {
 		if (pOtherFixture.getUserData().toString().equals(TableController.TABLE_COMPONENT_NAME_FIXTURE_PLUNGER)) {
 			final var lBall = (BallPhysicsData) pBallFixture.getBody().getUserData();
 			lBall.inPlungePit = pCollides;
-
 			return;
 		}
 
@@ -143,6 +144,8 @@ public class GameCollisionController extends Box2dContactController {
 
 				lTableProp.hit();
 
+				mGameStateController.gameState().increaseScore(WORMHOLE_SCORE);
+
 				mSoundFxController.playSound(SoundFxController.AUDIO_NAME_BLACKHOLE);
 
 				// TODO: This only works because there is 1 sinkhole
@@ -151,9 +154,6 @@ public class GameCollisionController extends Box2dContactController {
 
 			return;
 		}
-
-		// Kickers
-		// if (pOtherFixture.getUserData().toString().equals(TableController.TABLE_COMPONENT_NAME_FIXTURE_KICKER)) {
 
 		// TODO: FIX THIS - its a mess
 		if (pCollides && lBodyHasUserData && pOtherFixture.getUserData().toString().startsWith("KICKER_")) {
@@ -213,7 +213,7 @@ public class GameCollisionController extends Box2dContactController {
 			pContact.setEnabled(false);
 
 			lBallBody.applyLinearImpulse(tt, lBallWorldCenter, true);
-			
+
 			mSoundFxController.playSound(SoundFxController.AUDIO_NAME_KICKER);
 
 			mGameStateController.gameState().increaseScore(KICKER_SCORE);
@@ -242,6 +242,8 @@ public class GameCollisionController extends Box2dContactController {
 				}
 			}
 
+			mGameStateController.gameState().increaseScore(HITTER_SCORE);
+
 			if (lTableProp != null) {
 				lTableProp.hit();
 			}
@@ -257,7 +259,7 @@ public class GameCollisionController extends Box2dContactController {
 
 			if (pOtherFixture.getUserData() != null) {
 				if (pOtherFixture.getUserData().toString().equals("FLIPPER")) {
-					
+
 				} else {
 					mSoundFxController.playSound(SoundFxController.AUDIO_NAME_HIT);
 				}

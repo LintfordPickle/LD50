@@ -14,7 +14,7 @@ public class GameOverScreen extends MenuScreen {
 	// ---------------------------------------------
 
 	private static final int BUTTON_RESTART = 0;
-	private static final int BUTTON_EXIT_TO_MENU = 1;
+	private static final int BUTTON_QUIT_GAME = 1;
 
 	// ---------------------------------------------
 	// Variables
@@ -39,9 +39,9 @@ public class GameOverScreen extends MenuScreen {
 		lRestartEntry.registerClickListener(this, BUTTON_RESTART);
 		lRestartEntry.desiredWidth(400.f);
 
-		final var lExitToMenuEntry = new MenuEntry(pScreenManager, lListLayout, "Exit to Menu");
+		final var lExitToMenuEntry = new MenuEntry(pScreenManager, lListLayout, "Quit Game");
 		lExitToMenuEntry.horizontalFillType(FILLTYPE.TAKE_DESIRED_SIZE);
-		lExitToMenuEntry.registerClickListener(this, BUTTON_EXIT_TO_MENU);
+		lExitToMenuEntry.registerClickListener(this, BUTTON_QUIT_GAME);
 		lExitToMenuEntry.desiredWidth(400.f);
 
 		lListLayout.addMenuEntry(lRestartEntry);
@@ -61,11 +61,12 @@ public class GameOverScreen extends MenuScreen {
 		switch (mClickAction.consume()) {
 		case BUTTON_RESTART:
 			mGameState.startGame();
+			screenManager.addScreen(new DemoScreen(screenManager, null));
 			exitScreen();
 			break;
 
-		case BUTTON_EXIT_TO_MENU:
-
+		case BUTTON_QUIT_GAME:
+			screenManager.exitGame();
 			break;
 
 		}

@@ -2,6 +2,7 @@ package net.ld.ld50.controllers;
 
 import org.lwjgl.glfw.GLFW;
 
+import net.ld.unstable.controllers.SoundFxController;
 import net.lintford.library.controllers.BaseController;
 import net.lintford.library.controllers.core.ControllerManager;
 import net.lintford.library.core.LintfordCore;
@@ -20,7 +21,7 @@ public class PlungerController extends BaseController {
 	// Variables
 	// ---------------------------------------------
 
-	private TableController mTableController;
+	private SoundFxController mSoundFxController;
 	private BallController mBallController;
 
 	private float mPlungerPower;
@@ -49,7 +50,7 @@ public class PlungerController extends BaseController {
 	public void initialize(LintfordCore pCore) {
 		super.initialize(pCore);
 
-		mTableController = (TableController) mControllerManager.getControllerByNameRequired(TableController.CONTROLLER_NAME, entityGroupID());
+		mSoundFxController = (SoundFxController) mControllerManager.getControllerByNameRequired(SoundFxController.CONTROLLER_NAME, LintfordCore.CORE_ENTITY_GROUP_ID);
 		mBallController = (BallController) mControllerManager.getControllerByNameRequired(BallController.CONTROLLER_NAME, entityGroupID());
 	}
 
@@ -67,6 +68,8 @@ public class PlungerController extends BaseController {
 		} else if (mPlungerPower > 0.01f) {
 			mBallController.applyPlungerPower(mPlungerPower);
 			mPlungerPower = 0.f;
+
+			mSoundFxController.playSound(SoundFxController.AUDIO_NAME_PLUNGER);
 		}
 
 		return super.handleInput(pCore);
